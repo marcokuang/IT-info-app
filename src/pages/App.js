@@ -1,9 +1,10 @@
 import React from "react";
 import LoginPage from "pages/LoginPage";
+import HomePage from "pages/HomePage";
 
 class App extends React.Component {
   render() {
-    return <LoginPage />;
+    return <HomePage />;
   }
 }
 
