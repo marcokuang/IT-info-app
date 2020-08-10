@@ -4,7 +4,7 @@ import "assets/styles/subject.less";
 
 class SubjectItem extends Component {
   render() {
-    const { name, href = "###", backgroundPositionX = 0 } = this.props;
+    const { name, href = "#/list", backgroundPositionX = 0 } = this.props;
 
     return !name ? (
       <Flex.Item />

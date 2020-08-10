@@ -1,5 +1,5 @@
 import React from "react";
-import { Button, NavBar, Icon } from "antd-mobile";
+import { Button } from "antd-mobile";
 import "antd-mobile/dist/antd-mobile.css";
 
 export default (props) => {

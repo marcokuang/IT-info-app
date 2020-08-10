@@ -23,13 +23,13 @@ const NUM_ROWS = 10;
 const MAX_ROWS = 30;
 let pageIndex = 0;
 
-const genData = (pIndex = 0, max = MAX_ROWS) => {
+const genData = (pIndex = 0) => {
   const dataBlob = {};
-  for (let i = 0; i < NUM_ROWS && pageIndex * NUM_ROWS <= max; i++) {
+  for (let i = 0; i < NUM_ROWS; i++) {
     const ii = pIndex * NUM_ROWS + i;
     dataBlob[`${ii}`] = `row - ${ii}`;
   }
-  console.log(dataBlob, pIndex, max);
+  console.log(dataBlob, pIndex);
   return dataBlob;
 };
 
@@ -128,7 +128,7 @@ export default class CustomizedListView extends Component {
         // onScroll={() => {
         //   console.log("scroll");
         // }}
-        // scrollRenderAheadDistance={500}
+        scrollRenderAheadDistance={500}
         onEndReached={this.onEndReached}
         onEndReachedThreshold={10}
       />

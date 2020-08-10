@@ -11,7 +11,7 @@ export default class LoginPage extends Component {
     return (
       <div className="home-page">
         <Header />
-        <Banner />
+        {/* <Banner /> */}
         <Subject />
         <SubList />
         <Tabs />

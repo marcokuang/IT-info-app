@@ -5,29 +5,13 @@ import Article from "components/Article";
 import SubList from "components/SubList";
 
 export default class DetailPage extends Component {
-  constructor(props) {
-    super(props);
-    fetch(
-      "https://api.rss2json.com/v1/api.json?rss_url=https%3A%2F%2Fsegmentfault.com%2Farticles%2Ffeeds"
-    )
-      .then((res) => res.json())
-      .then((data) => {
-        const res = data.items;
-
-        const posts = res.map(({ title, link, thumbnail, description }) => {
-          return { title, link, thumbnail, description };
-        });
-
-        this.setState({ posts, currentPost: posts[0] });
-      });
-    this.state = { posts: [], currentPost: {} };
-  }
-
   render() {
+    // const { title, link, thumbnail, description } = this.props.location;
+    // console.log(title, link, thumbnail, description);
     return (
       <div>
-        <Header />
-        <Article {...this.state.currentPost} />
+        <Header entryPoint="detailPage" />
+        <Article {...this.props.location} />
         <SubList />
       </div>
     );

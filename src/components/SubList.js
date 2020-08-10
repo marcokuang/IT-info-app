@@ -1,24 +1,18 @@
 import React, { Component } from "react";
 import { List } from "antd-mobile";
 import Image from "components/Image";
+import { Link } from "react-router-dom";
+import { LatestNews } from "services/DataController";
 
 export default class SubList extends Component {
   constructor(props) {
     super(props);
-    fetch(
-      "https://api.rss2json.com/v1/api.json?rss_url=https%3A%2F%2Fsegmentfault.com%2Farticles%2Ffeeds"
-    )
-      .then((res) => res.json())
-      .then((data) => {
-        const res = data.items;
+    this.state = { posts: [], fetchedData: false };
+  }
 
-        const posts = res.map(({ title, link, thumbnail, description }) => {
-          return { title, link, thumbnail, description };
-        });
-
-        this.setState({ posts });
-      });
-    this.state = { posts: [] };
+  componentDidMount() {
+    const posts = LatestNews(this);
+    // this.setState({ posts });
   }
 
   generatePosts = (post, key) => {
@@ -46,9 +40,20 @@ export default class SubList extends Component {
         thumb={thumbnailHTML(post)}
         wrap
       >
-        <a href={post.link} style={{ textDoration: "None" }}>
+        {/* <a href={post.link} style={{ textDoration: "None" }}>
           {post.title}
-        </a>
+        </a> */}
+
+        <Link
+          to={{
+            pathname: "/detail",
+            hash: "#article",
+            ...post,
+          }}
+          replace
+        >
+          {post.title}
+        </Link>
         {/* <div
           dangerouslySetInnerHTML={{ __html: post.description }}
           style={{ width: "100%", whiteSpace: "normal" }}
@@ -59,6 +64,9 @@ export default class SubList extends Component {
 
   render() {
     // console.log(this.state.posts);
+    if (!this.state.fetchedData) {
+      return <p>Loading ...</p>;
+    }
     return (
       <List renderHeader={() => "Latest News"} className="sub-list">
         {this.state.posts.map((post, key) => {

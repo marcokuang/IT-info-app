@@ -1,70 +1,42 @@
 import React, { Component } from "react";
 import { Tabs, WhiteSpace, List } from "antd-mobile";
+import { Link } from "react-router-dom";
+import { TabContentGetter, tabs } from "services/DataController";
 
 export default class TabComponent extends Component {
-  tabs = [
-    { title: "FrontEnd", name: "frontend" },
-    { title: "BackEnd", name: "backend" },
-    { title: "开发者头条", name: "toutiao" },
-  ];
-
   constructor(props) {
     super(props);
-    this.state = { backendPosts: [], toutiaoPosts: [], frontendPosts: [] };
-    this.tabs.map((source) => this.retrieveContentsFromSource(source));
+
+    this.tabs = tabs;
+
+    const state = {};
+    for (let tab of this.tabs) {
+      state[tab] = [];
+    }
+    this.state = { state };
+    this.tabs.map((source) => TabContentGetter(source, this));
   }
 
-  retrieveContentsFromSource = (source) => {
-    let sourceURL = "";
-    switch (source.name) {
-      case "backend":
-        sourceURL =
-          "https://api.rss2json.com/v1/api.json?rss_url=https%3A%2F%2Fsegmentfault.com%2Farticles%2Ffeeds";
-        break;
-      case "toutiao":
-        sourceURL =
-          "https://api.rss2json.com/v1/api.json?rss_url=https%3A%2F%2Frsshub.app%2Ftoutiao%2Ftoday";
-        break;
-      case "frontend":
-        sourceURL =
-          "https://api.rss2json.com/v1/api.json?rss_url=https%3A%2F%2Frsshub.app%2Fsegmentfault%2Fchannel%2Ffrontend";
-        break;
-      default:
-        break;
-    }
-
-    fetch(sourceURL)
-      .then((res) => res.json())
-      .then((data) => {
-        const posts = data.items.map(({ title, link, description }) => {
-          return {
-            title,
-            link,
-            description,
-          };
-        });
-        // console.log(data.items);
-        switch (source.name) {
-          case "backend":
-            this.setState({ ...this.state, backendPosts: posts });
-            break;
-          case "toutiao":
-            this.setState({ ...this.state, toutiaoPosts: posts });
-            break;
-          case "frontend":
-            this.setState({ ...this.state, frontendPosts: posts });
-            break;
-          default:
-            break;
-        }
-      });
-  };
-
   renderTab = (posts) => {
+    if (!this.state[posts]) {
+      return null;
+    }
+    console.log(posts);
     return this.state[posts].map((post) => {
       return (
         <List.Item key={post.title} wrap>
-          <a href={post.link}>{post.title}</a>
+          {/* <a href={post.link}>{post.title}</a> */}
+
+          <Link
+            to={{
+              pathname: "/detail",
+              hash: "#article",
+              ...post,
+            }}
+            replace
+          >
+            {post.title}
+          </Link>
         </List.Item>
       );
     });
@@ -73,9 +45,7 @@ export default class TabComponent extends Component {
   generateTabContents = () => {
     return this.tabs.map((site) => {
       return (
-        <div key={site.name}>
-          {this.renderTab(site.name.toLowerCase() + "Posts")}
-        </div>
+        <div key={site.name}>{this.renderTab(site.name.toLowerCase())}</div>
       );
     });
   };

@@ -6,7 +6,7 @@ export default class ListPage extends Component {
   render() {
     return (
       <div className="list-page">
-        <Header />
+        <Header entryPoint="listPage" />
         <CustomizedListView />
       </div>
     );

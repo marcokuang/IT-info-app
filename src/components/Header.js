@@ -10,6 +10,22 @@ export default class Header extends Component {
     this.state = { value: "" };
   }
 
+  renderLeftContent = () => {
+    if (this.props.entryPoint) {
+      return (
+        <Link to="/home" key="0">
+          Back
+        </Link>
+      );
+    }
+
+    return (
+      <Link to="/" key="0">
+        <Image src="logo5.png" key="0" height="32px" />
+      </Link>
+    );
+  };
+
   render() {
     return (
       <div className="header">
@@ -17,11 +33,7 @@ export default class Header extends Component {
           // mode="light"
           // icon={<Icon type="left" />}
           // onLeftClick={() => console.log("onLeftClick")}
-          leftContent={[
-            <Link to="/" key="0">
-              <Image src="logo5.png" key="0" height="32px" />
-            </Link>,
-          ]}
+          leftContent={[this.renderLeftContent()]}
         >
           <SearchBar
             maxLength="20"
