@@ -8,7 +8,7 @@ export default class LoginPage extends Component {
   render() {
     return (
       <div className="login-page">
-        <Image src="logo.png" />
+        <Image src="logo5.png" />
         <LoginForm />
       </div>
     );

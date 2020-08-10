@@ -4,12 +4,15 @@ import "assets/fonts/style.css";
 
 export default class FormInput extends React.Component {
   render() {
+    const { iconClassName, type, placeholder, value, onChange } = this.props;
     return (
       <div className="input-group">
-        <span className={this.props.iconClassName}></span>
+        <span className={iconClassName}></span>
         <input
-          type={this.props.type}
-          placeholder={this.props.placeholder}
+          type={type}
+          placeholder={placeholder}
+          value={value}
+          onChange={onChange}
         ></input>
       </div>
     );

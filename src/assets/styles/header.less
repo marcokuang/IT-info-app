@@ -1,0 +1,25 @@
+@import "global.less";
+
+.header {
+  .am-navbar {
+    background-color: @base-color;
+
+    .am-navbar-left,
+    .am-navbar-right,
+    .am-search-input {
+      flex: 0 1 auto;
+    }
+
+    .am-navbar-title {
+      margin-left: 10px;
+      .am-search {
+        flex: 1;
+        background-color: @base-color;
+      }
+    }
+
+    .am-search-cancel {
+      color: #fff;
+    }
+  }
+}

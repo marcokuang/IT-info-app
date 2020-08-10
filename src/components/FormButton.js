@@ -4,7 +4,9 @@ import "assets/styles/formButton.less";
 export default class FormButton extends React.Component {
   render() {
     return this.props.type === "regular" ? (
-      <a href="###">{this.props.children}</a>
+      <a href="###" className="regular-button">
+        {this.props.children}
+      </a>
     ) : (
       <button
         className={`form-button ${
